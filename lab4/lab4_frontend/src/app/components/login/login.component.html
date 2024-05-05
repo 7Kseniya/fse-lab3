@@ -1,0 +1,17 @@
+<br/>
+<div style="text-align: center; align-self: center;" class="main">
+    <form class="form-control">
+        <div class="username-input" id="username-input">
+            <label>Login:</label>
+            <input type="text" id="login" name="login" [(ngModel)] = "user.login"/><br>
+    </div>
+    <div class="pwd-input" id="pwd-input">
+            <label>Password:</label>
+            <input type="password" id="pwd" name="pwd" [(ngModel)] = "user.password"/><br>
+    </div>
+    <div id="error" *ngIf="isError">
+        <p>{{ error }}</p>
+    </div>
+    <button class="btn-primary" type="submit" (click)="sendLogin()">Submit</button>
+    </form>
+</div>
