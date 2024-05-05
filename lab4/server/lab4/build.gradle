@@ -8,6 +8,7 @@ plugins {
     id 'application'
     // id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'org.springframework.boot' version '3.1.5'
+
 }
 
 
@@ -31,6 +32,9 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:3.1.5'
     runtimeOnly 'org.postgresql:postgresql:42.6.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.1.5'
+
+    // testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+    // testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 group = 'se.ifmo.lab4'
@@ -54,6 +58,19 @@ publishing {
     }
 }
 
+
+
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+
+    maxHeapSize = '1G'
+
+    testLogging {
+        events "passed"
+    }
+}
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
@@ -61,3 +78,9 @@ tasks.withType(JavaCompile) {
 tasks.withType(Javadoc) {
     options.encoding = 'UTF-8'
 }
+
+
+//compile = compileJava
+//build = build
+//clean = clean
+//test = test
