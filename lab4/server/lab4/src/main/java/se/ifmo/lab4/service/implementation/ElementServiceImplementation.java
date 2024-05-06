@@ -3,6 +3,7 @@ package se.ifmo.lab4.service.implementation;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,8 @@ import se.ifmo.lab4.service.ElementService;
 @Transactional
 @Slf4j
 public class ElementServiceImplementation implements ElementService{
-    private final ElementRepository elementRepository;
+    @Autowired
+    private ElementRepository elementRepository;
 
     @Override
     public Element create(Element element) {
