@@ -43,7 +43,7 @@ dependencies {
 group = 'se.ifmo.lab4'
 version = '0.0.1-SNAPSHOT'
 description = 'lab4'
-sourceCompatibility = 17
+sourceCompatibility = 17 
 mainClassName = 'se.ifmo.lab4.Lab4Application'
 jar {
     manifest {
@@ -87,3 +87,17 @@ tasks.withType(Javadoc) {
 //build = build
 //clean = clean
 //test = test
+
+task music(dependsOn: 'build') {
+    doLast {
+        if (build.state.executed) {
+            println ':)'
+            exec {
+                commandLine '/usr/bin/paplay', 'sound/mus.wav'
+            }
+        } else {
+            println ':('
+
+        }
+    }
+}
