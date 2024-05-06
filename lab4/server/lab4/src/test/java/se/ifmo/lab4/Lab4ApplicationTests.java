@@ -10,6 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import static org.hamcrest.Matchers.is;
 
 import se.ifmo.lab4.service.implementation.ElementServiceImplementation;
 
@@ -18,6 +19,8 @@ import se.ifmo.lab4.service.implementation.ElementServiceImplementation;
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-test.properties")
 class Lab4ApplicationTests {
+
+
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -28,16 +31,17 @@ class Lab4ApplicationTests {
 
 	
 	@Test
-    void loginTest() throws Exception {
-        String baseUrl = "/api/v1/authentication/register";
+	void loginTest() throws Exception {
+		String baseUrl = "/api/v1/authentication/register";  
+		String requestBody = "{\"login\":\"test\",\"password\":\"test\"}";
+	
+		mockMvc.perform(MockMvcRequestBuilders.post(baseUrl)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(requestBody))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+			    .andExpect(MockMvcResultMatchers.jsonPath("$.status", is("CREATED")));
 
-        String requestBody = "{\"login\":\"test\",\"password\":\"test\"}";
 
-        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-
+	}
 }
+
